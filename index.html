@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Sovereign World</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/variables.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="./styles/dashboard.css" />
+    <link rel="stylesheet" href="./styles/map.css" />
+    <link rel="stylesheet" href="./styles/modal.css" />
+</head>
+<body>
+
+<div id="app">
+
+    <div id="map"></div>
+
+    <div id="hud-gradient"></div>
+
+    <aside id="sidebar">
+
+        <div class="brand-panel glass">
+            <div class="brand-top">
+                <div class="brand-logo"></div>
+
+                <div>
+                    <h1>Sovereign World</h1>
+                    <span>Global Economic Simulation</span>
+                </div>
+            </div>
+
+            <div class="treasury-card">
+                <div class="metric">
+                    <label>Treasury</label>
+                    <strong id="treasury-value">0 WCR</strong>
+                </div>
+
+                <div class="metric">
+                    <label>Exchange Rate</label>
+                    <strong id="exchange-rate">1.00</strong>
+                </div>
+            </div>
+        </div>
+
+        <nav class="dashboard-tabs glass">
+            <button class="tab-button active" data-tab="overview">
+                Overview
+            </button>
+
+            <button class="tab-button" data-tab="taxes">
+                Taxes
+            </button>
+
+            <button class="tab-button" data-tab="production">
+                Production
+            </button>
+
+            <button class="tab-button" data-tab="laws">
+                Laws
+            </button>
+        </nav>
+
+        <section class="dashboard-content">
+
+            <div class="tab-panel active glass" id="overview-panel">
+
+                <div class="panel-title">
+                    National Statistics
+                </div>
+
+                <div class="stat-grid">
+
+                    <div class="stat-card">
+                        <label>Population</label>
+                        <strong id="population-stat">0</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <label>Area</label>
+                        <strong id="area-stat">0 km²</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <label>GDP</label>
+                        <strong id="gdp-stat">0</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <label>Infrastructure</label>
+                        <strong id="infra-stat">1.00x</strong>
+                    </div>
+
+                </div>
+
+                <div class="country-acquisition">
+
+                    <div class="section-header">
+                        Acquire Country
+                    </div>
+
+                    <input
+                        type="text"
+                        id="country-search"
+                        placeholder="Search country..."
+                    />
+
+                    <div id="country-list"></div>
+
+                </div>
+
+            </div>
+
+            <div class="tab-panel glass" id="taxes-panel">
+
+                <div class="panel-title">
+                    Taxation Policy
+                </div>
+
+                <div class="slider-group">
+
+                    <label>
+                        Income Tax
+                        <span id="tax-rate-label">12%</span>
+                    </label>
+
+                    <input
+                        id="tax-slider"
+                        type="range"
+                        min="0"
+                        max="60"
+                        step="1"
+                        value="12"
+                    />
+
+                </div>
+
+                <div class="economy-impact">
+                    <div class="impact-card">
+                        <label>Growth Modifier</label>
+                        <strong id="growth-modifier">1.00x</strong>
+                    </div>
+
+                    <div class="impact-card">
+                        <label>Revenue Efficiency</label>
+                        <strong id="revenue-efficiency">1.00x</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-panel glass" id="production-panel">
+
+                <div class="panel-title">
+                    Infrastructure
+                </div>
+
+                <div class="infra-panel">
+
+                    <div class="infra-level">
+                        <label>Infrastructure Multiplier</label>
+                        <strong id="infra-multiplier">1.00x</strong>
+                    </div>
+
+                    <button id="upgrade-infra-btn" class="primary-button">
+                        Upgrade Infrastructure
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="tab-panel glass" id="laws-panel">
+
+                <div class="panel-title">
+                    Laws & Diplomacy
+                </div>
+
+                <div class="law-grid">
+
+                    <div class="glass law-card">
+                        <label>Religion</label>
+
+                        <select id="religion-select">
+                            <option>Secular</option>
+                            <option>Christianity</option>
+                            <option>Islam</option>
+                            <option>Hinduism</option>
+                            <option>Buddhism</option>
+                        </select>
+                    </div>
+
+                    <div class="glass law-card">
+                        <label>Language</label>
+
+                        <select id="language-select">
+                            <option>English</option>
+                            <option>French</option>
+                            <option>German</option>
+                            <option>Spanish</option>
+                            <option>Arabic</option>
+                        </select>
+                    </div>
+
+                    <div class="glass law-card">
+                        <label>Government</label>
+
+                        <select id="government-select">
+                            <option>Republic</option>
+                            <option>Monarchy</option>
+                            <option>Technocracy</option>
+                            <option>Federal Union</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </aside>
+
+    <div id="mobile-tabbar" class="glass">
+
+        <button data-mobile-tab="overview">
+            Overview
+        </button>
+
+        <button data-mobile-tab="taxes">
+            Taxes
+        </button>
+
+        <button data-mobile-tab="production">
+            Production
+        </button>
+
+        <button data-mobile-tab="laws">
+            Laws
+        </button>
+
+    </div>
+
+</div>
+
+<div id="checkout-modal" class="modal hidden">
+
+    <div class="modal-content glass">
+
+        <div class="modal-header">
+            <h2>Territory Acquisition</h2>
+
+            <button id="close-modal">
+                ✕
+            </button>
+        </div>
+
+        <div class="purchase-summary">
+
+            <div class="purchase-row">
+                <span>Territory</span>
+                <strong id="purchase-name"></strong>
+            </div>
+
+            <div class="purchase-row">
+                <span>Area</span>
+                <strong id="purchase-area"></strong>
+            </div>
+
+            <div class="purchase-row">
+                <span>Price</span>
+                <strong id="purchase-price"></strong>
+            </div>
+
+        </div>
+
+        <button id="gpay-button" class="primary-button">
+            Pay with Google Pay
+        </button>
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
+<script
+    async
+    src="https://pay.google.com/gp/p/js/pay.js"
+></script>
+
+<script type="module" src="./scripts/main.js"></script>
+
+</body>
+</html>
