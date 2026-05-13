@@ -1,0 +1,118 @@
+.stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stat-card {
+    padding: 18px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+}
+
+.stat-card label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.country-acquisition {
+    margin-top: 24px;
+}
+
+.section-header {
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+#country-search {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    color: white;
+}
+
+#country-list {
+    margin-top: 12px;
+
+    max-height: 340px;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.country-item {
+    padding: 16px;
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.04);
+
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.country-item:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
+}
+
+.country-item strong {
+    display: block;
+}
+
+.country-item span {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.slider-group input {
+    width: 100%;
+}
+
+.economy-impact {
+    margin-top: 24px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.impact-card,
+.infra-level,
+.law-card {
+    padding: 18px;
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.04);
+}
+
+.law-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+select {
+    width: 100%;
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.06);
+    color: white;
+}
